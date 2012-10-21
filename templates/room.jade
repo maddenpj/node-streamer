@@ -5,9 +5,19 @@ html
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
 		script(src='/room_client.js')
 	body
-		video(id="player") 
-			source(src="/stream/Abv",type="video/webm")
+		h2 Room #{roomName}
+		#uploader
+			form(action="/upload", method="post", enctype="multipart/form-data")
+				input(type="file", name="video")
+				button(type="submit") Go
+			br
+			br
+			br
+		
+		#player
+			video(id="player") 
+				source(src="/stream/Abv",type="video/webm")
 
-		br
-		button(id="pause") Pause
-		button(id="play")  Play
+			br
+			button(id="pause") Pause
+			button(id="play")  Play

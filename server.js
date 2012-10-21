@@ -6,6 +6,10 @@ var io  = require('socket.io').listen(server);
 var uplawder = require('./uplawder.js');
 
 server.listen(8080); // start listening on 8080
+
+rooms = [];
+roomID = 1;
+
 app.configure(function () {
 	app.use(express.static(__dirname+'/public'));
 	//app.use(express.bodyParser({uploadDir: __dirname+'/uploads'}));
@@ -18,9 +22,15 @@ app.get('/', function (request, response) {
 	//response.sendfile(__dirname+'/index.html'); 
 	response.render('index');
 });
+
+app.get('/getroom', function(req, res) {
+	rooms.push(roomID);
+	roomID++; 
+});
+
 app.get('/room/:id',function (req,res) {
 	console.log(req.params.id);
-	res.render('room', { test: 'TEST'});
+	res.render('room', { roomName: req.params.id});
 });
 
 var DaStream='';
@@ -29,7 +39,7 @@ var DaData = new Buffer(0);
 app.post('/upload', function (req, res) {
 	console.log('Uplawding');
 	
-	res.end('Uploading');
+	//res.end('Uploading');
 	DaStream = req.fileStream;
 	console.log(DaStream);
 	DaStream.on('data', function(data) { 
