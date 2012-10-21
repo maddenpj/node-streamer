@@ -3,11 +3,13 @@ html
 	head
 		script(src='/socket.io/socket.io.js')
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+		script
+			var RoomID = #{roomName}
 		script(src='/room_client.js')
 	body
 		h2 Room #{roomName}
 		#uploader
-			input(type="file", name="video")
+			input(id="file-input",type="file", name="video")
 			button(id="file-submit") Go
 			br
 			br
@@ -15,7 +17,7 @@ html
 		
 		#player
 			video(id="player") 
-				source(src="/stream/Abv",type="video/webm")
+				source(src="/stream/abv",type="video/webm")
 
 			br
 			button(id="pause") Pause

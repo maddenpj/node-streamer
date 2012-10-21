@@ -6,8 +6,11 @@ exports = module.exports = function uplawder(options) {
 	return function (req,res,next) {
 		if(req.method == 'GET' || req.method == 'HEAD') return next();
 		
-		//please be a form
-		//
+		console.log(req.method);
+		console.log(req.url);
+		console.log(req.headers);
+
+		/*
 		var form = new formidable.IncomingForm;
 		Object.keys(options).forEach(function(key){
 			form[key] = options[key];
@@ -19,6 +22,6 @@ exports = module.exports = function uplawder(options) {
 			next();
 		};
 
-		form.parse(req);
+		form.parse(req);*/
 	}
 }

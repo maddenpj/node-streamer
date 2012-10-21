@@ -4,8 +4,11 @@ var app = express();
 var server = http.createServer(app);
 var io  = require('socket.io').listen(server); 
 var uplawder = require('./uplawder.js');
+var atob  = require('atob');
 
 server.listen(8080); // start listening on 8080
+
+var debugf = require('fs').createWriteStream('vid.webm');
 
 rooms = [];
 roomID = 1;
@@ -33,6 +36,10 @@ app.get('/getroom', function(req, res) {
 app.get('/room/:id',function (req,res) {
 	console.log(req.params.id);
 	res.render('room', { roomName: req.params.id});
+});
+
+app.post('/room/:id', function (req,res) {
+	console.log('Gotcha');
 });
 
 var DaStream='';
@@ -112,6 +119,11 @@ io.sockets.on('connection', function (socket) {
 		}
 		clearInterval(timerID);
 		paused = true;
+	});
+
+	socket.on('file-upload', function (data) {
+		var dbuf = new Buffer(atob(data));
+		debugf.write(dbuf);
 	});
 
 	socket.on('play', function () {
