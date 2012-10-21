@@ -2,6 +2,8 @@ $(function() {
 
 var socket = io.connect();
 
+
+
 var video = document.getElementsByTagName('video')[0];
 
 socket.on('timer', function (data) {

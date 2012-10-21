@@ -24,8 +24,10 @@ app.get('/', function (request, response) {
 });
 
 app.get('/getroom', function(req, res) {
-	rooms.push(roomID);
+	var id = roomID;
 	roomID++; 
+	rooms.push(id);
+	res.redirect('/room/'+id);
 });
 
 app.get('/room/:id',function (req,res) {
@@ -36,7 +38,7 @@ app.get('/room/:id',function (req,res) {
 var DaStream='';
 var DaData = new Buffer(0);
 
-app.post('/upload', function (req, res) {
+app.post('/upload/:id', function (req, res) {
 	console.log('Uplawding');
 	
 	//res.end('Uploading');
@@ -51,7 +53,7 @@ app.post('/upload', function (req, res) {
 });
 
 app.get('/stream/:id', function(req,res) {
-	var total = DaData.length;
+	/*var total = DaData.length;
 	if (req.headers['range']) {
 		var range = req.headers.range;
 		var parts = range.replace(/bytes=/, "").split("-");
@@ -72,6 +74,7 @@ app.get('/stream/:id', function(req,res) {
 		res.writeHead(200, { 'Content-Length': total, 'Content-Type': DaStream.mime });
 		res.end(DaData);
 	}
+	*/
 });
 
 function Client(socket)
