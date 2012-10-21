@@ -18,6 +18,13 @@ socket.on('pause',function () {
 	video.pause();
 });
 
+socket.on('paused?', function(paused) {
+	if(paused)
+		video.pause();
+	else
+		video.play();
+});
+
 socket.on('play', function (data) {
 	video.play();
 	video.currentTime = data;
